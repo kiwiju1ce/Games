@@ -1,10 +1,10 @@
 package code.view;
 
 public interface ViewComponent {
-    String LANE = "LANE";
-    String GAME = "GAME";
-    String FRAMES = "FRAMES";
-    String PINS = "PINS";
+    String PLAYER = "PLAYER";
+    String MAX_SCORE = "MAX";
+    String ROUND = "ROUND";
+    String FRAME = "FRAME";
     String SCORE = "SCORE";
-    String ROW_DIVIDER = "------+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+";
+    String ROW_DIVIDER = "------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+";
 }
