@@ -1,4 +1,4 @@
-package code;
+package code.rule;
 
 import code.model.Frame;
 import code.model.Roll;
@@ -13,6 +13,8 @@ import static code.constant.BowlingConstant.MAX_ROUNDS;
 
 public class ScoreCalculator {
     public Optional<Score> updatedScore(List<RoundResult> results, int roundIdx) {
+        if (results.get(roundIdx).canProcess()) return Optional.empty();
+
         Score score;
         if (isFinal(roundIdx)) {
             RoundResult result = results.get(roundIdx);
@@ -22,10 +24,6 @@ public class ScoreCalculator {
         }
 
         return Optional.ofNullable(score);
-    }
-
-    public Score updateMaxScore(List<RoundResult> results) {
-        return null;
     }
 
     private boolean isFinal(int round) {
@@ -55,17 +53,17 @@ public class ScoreCalculator {
     }
 
     private Score checkOneRoll(List<RoundResult> results, int roundIdx) {
-        if (results.size() >= roundIdx + 1) {
+        if (results.size() > roundIdx + 1) {
             Roll first = results.get(roundIdx + 1).rolls().getFirst();
             return new Score(MAX_PINS + first.struck());
         } else return null;
     }
 
     private Score checkTwoRolls(List<RoundResult> results, int roundIdx) {
-        if (results.size() >= roundIdx + 1) {  // 이후 던진 투구가 있다면
+        if (results.size() > roundIdx + 1) {  // 이후 던진 투구가 있다면
             List<Roll> nextRolls = results.get(roundIdx + 1).rolls();
             if (nextRolls.size() < 2) {     // 다음 프레임 투구 수가 2회 미만이라면
-                if (results.size() >= roundIdx + 2) {  // 다다음 프레임에서 투구를 했다면
+                if (results.size() > roundIdx + 2) {  // 다다음 프레임에서 투구를 했다면
                     Roll thirdRoll = results.get(roundIdx + 2).rolls().getFirst();
                     return new Score(2 * MAX_PINS + thirdRoll.struck());
                 } else return null;
@@ -80,5 +78,9 @@ public class ScoreCalculator {
         return rolls.stream()
                 .map(Roll::struck)
                 .reduce(0, Integer::sum);
+    }
+
+    public Score updateMaxScore(List<RoundResult> results) {
+        return null;
     }
 }

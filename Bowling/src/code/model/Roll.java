@@ -1,4 +1,4 @@
-package code;
+package code.model;
 
 import code.exception.InvalidInputException;
 
@@ -26,5 +26,10 @@ public class Roll {
 
     public Frame frame() {
         return frame;
+    }
+
+    @Override
+    public String toString() {
+        return frame.hasCode() ? frame.code() : String.valueOf(struck);
     }
 }
