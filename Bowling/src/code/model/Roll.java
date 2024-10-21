@@ -23,4 +23,8 @@ public class Roll {
     public Integer struck() {
         return struck;
     }
+
+    public Frame frame() {
+        return frame;
+    }
 }

@@ -10,33 +10,38 @@ import java.util.List;
 public class RoundResult {
     private int iter = 1;
     private int chance = 2;
-    private final int MAX_TRIAL;
-    private int spareBalls = BowlingConstant.MAX_PINS;
+    private final Rule rule;
+    private int sparePins = BowlingConstant.MAX_PINS;
+    private Score score;
     private final List<Roll> results = new ArrayList<>();
 
     public RoundResult(Rule rule) {
-        this.MAX_TRIAL = rule.getMaxIter();
+        this.rule = rule;
     }
 
-    public void thrown(final int struck, Rule rule) {
+    public void thrown(final int struck) {
         updateIter();
-        assert iter <= MAX_TRIAL;
+        assert iter <= rule.getMaxIter();
 
         Frame frame = rule.determineFrame(struck, results);
-        int grantedChance = rule.grantChance(frame);
+        int grantedChance = rule.grantChance(frame, iter);
 
         updateChance(grantedChance);
         assert 0 <= chance && chance <= 2;
 
-        updateSpareBalls(struck);
-        assert spareBalls >= 0;
+        updateSparePins(struck);
+        assert sparePins >= 0;
 
         Roll result = new Roll(struck, frame);
         results.add(result);
     }
 
-    private void updateSpareBalls(int struck) {
-        spareBalls -= struck;
+    public boolean canProcess() {
+        return chance > 0;
+    }
+
+    private void updateSparePins(int struck) {
+        sparePins -= struck;
     }
 
     private void updateChance(int grantedChance) {
@@ -55,8 +60,8 @@ public class RoundResult {
         return chance;
     }
 
-    public int spareBalls() {
-        return spareBalls;
+    public int sparePins() {
+        return sparePins;
     }
 
     public List<Roll> results() {
