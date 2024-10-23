@@ -18,7 +18,7 @@ public class BowlingGame {
     private final FinalFrameRule finalRule = new FinalFrameRule();
     private final List<RoundResult> results = new ArrayList<>();
     private final ScoreCalculator calculator = new ScoreCalculator();
-    private Score maxScore;
+    private Score maxScore = Score.noValue();
     private int round;
 
     private BowlingGame(Player player, int round) {
@@ -79,7 +79,7 @@ public class BowlingGame {
     private void updateScore() {
         for (int idx = 0; idx < results.size(); idx++) {
             if (!results.get(idx).scoreCalculated()) {
-                Optional<Score> score = calculator.updatedScore(results, idx);
+                Optional<Score> score = calculator.updatedScore(results(), idx);
                 if (score.isPresent()) {
                     results.get(idx).setScore(score.get());
                 } else break;
@@ -88,7 +88,7 @@ public class BowlingGame {
     }
 
     private void updateMaxScore() {
-        maxScore = calculator.updateMaxScore(results);
+        maxScore = calculator.updateMaxScore(results());
     }
 
     public String playerName() {
