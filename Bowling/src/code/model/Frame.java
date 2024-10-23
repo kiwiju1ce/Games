@@ -27,6 +27,9 @@ public enum Frame {
         return this == STRIKE || this == SPARE;
     }
 
+    public boolean struckAllPins() {
+        return this == STRIKE || this == SPARE;
+    }
     public boolean hasCode() {
         return this != OPEN && this != SPLIT;
     }

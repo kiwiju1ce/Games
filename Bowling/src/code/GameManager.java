@@ -1,5 +1,6 @@
 package code;
 
+import code.exception.InvalidPinsException;
 import code.model.BowlingGame;
 import code.model.Player;
 import code.view.GameView;
@@ -19,14 +20,22 @@ public class GameManager {
     public void start() {
         while (!game.completed()) {
             NextFrameDto next = game.getNextTurn();
-            int struck = view.askStruckPins(
-                    next.round(), next.iter(), next.playerName());
-            game.updateRoll(struck);
+            askResultAndRecord(next);
             view.printScoreTemplate(game);
             if (next.round() == MAX_ROUNDS+1) {
-
                 break;
             }
+        }
+    }
+
+    private void askResultAndRecord(NextFrameDto next) {
+        int struck = view.askStruckPins(
+                next.round(), next.iter(), next.playerName());
+        try {
+            game.updateRoll(struck);
+        } catch (InvalidPinsException e) {
+            view.noteInvalidInput();
+            askResultAndRecord(next);
         }
     }
 
