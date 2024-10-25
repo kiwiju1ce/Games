@@ -2,10 +2,9 @@ package code.util;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
-public class ReaderSingletonHelper {
-    private ReaderSingletonHelper() {
+public class ReaderSingletonRegistry {
+    private ReaderSingletonRegistry() {
     }
 
     public static BufferedReaderWrapper getInstance() {

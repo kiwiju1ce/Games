@@ -8,6 +8,13 @@ import java.util.List;
 import static code.constant.BowlingConstant.MAX_PINS;
 
 public class OrdinaryFrameRule implements Rule {
+    private OrdinaryFrameRule() {
+    }
+
+    public static OrdinaryFrameRule getInstance() {
+        return OrdinaryRuleHolder.instance;
+    }
+
     @Override
     public int getMaxIter() {
         return 2;
@@ -59,5 +66,9 @@ public class OrdinaryFrameRule implements Rule {
     @Override
     public int grantChance(Frame frame, int iter) {
         return frame == Frame.STRIKE ? -1 : 0;
+    }
+
+    private static class OrdinaryRuleHolder {
+        private static final OrdinaryFrameRule instance = new OrdinaryFrameRule();
     }
 }

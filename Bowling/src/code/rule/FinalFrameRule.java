@@ -8,6 +8,12 @@ import java.util.List;
 import static code.constant.BowlingConstant.MAX_PINS;
 
 public class FinalFrameRule implements Rule {
+    private FinalFrameRule() {
+    }
+
+    public static FinalFrameRule getInstance() {
+        return FinalRuleHolder.instance;
+    }
 
     @Override
     public int getMaxIter() {
@@ -90,5 +96,9 @@ public class FinalFrameRule implements Rule {
             case 3 -> 0;
             default -> throw new IllegalStateException("Unexpected iter: " + iter);
         };
+    }
+
+    private static class FinalRuleHolder {
+        private static final FinalFrameRule instance = new FinalFrameRule();
     }
 }

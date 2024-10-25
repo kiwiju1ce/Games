@@ -14,10 +14,10 @@ import static code.constant.BowlingConstant.MAX_ROUNDS;
 
 public class BowlingGame {
     private final Player player;
-    private final OrdinaryFrameRule ordinaryRule = new OrdinaryFrameRule();
-    private final FinalFrameRule finalRule = new FinalFrameRule();
+    private final OrdinaryFrameRule ordinaryRule = OrdinaryFrameRule.getInstance();
+    private final FinalFrameRule finalRule = FinalFrameRule.getInstance();
     private final List<RoundResult> results = new ArrayList<>();
-    private final ScoreCalculator calculator = new ScoreCalculator();
+    private final ScoreCalculator calculator = ScoreCalculator.getInstance();
     private Score maxScore = Score.noValue();
     private int round;
 

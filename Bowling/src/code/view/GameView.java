@@ -7,10 +7,9 @@ import code.model.Roll;
 import code.model.RoundResult;
 import code.util.BufferedReaderWrapper;
 import code.util.BufferedWriterWrapper;
-import code.util.ReaderSingletonHelper;
-import code.util.WriterSingletonHelper;
+import code.util.ReaderSingletonRegistry;
+import code.util.WriterSingletonRegistry;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,8 +26,8 @@ public class GameView {
 
     public static GameView init() {
         return new GameView(
-                ReaderSingletonHelper.getInstance(),
-                WriterSingletonHelper.getInstance());
+                ReaderSingletonRegistry.getInstance(),
+                WriterSingletonRegistry.getInstance());
     }
 
     public Player askPlayer() {
@@ -70,7 +69,7 @@ public class GameView {
     }
 
     private void printHeader(StringBuilder sb, BowlingGame game) {
-        sb.append(PLAYER + " : ").append(game.playerName()).append("\t \t \t")
+        sb.append(PLAYER).append(" : ").append(game.playerName()).append("\t \t \t")
                 .append(MAX_SCORE).append(" : ").append(game.maxScore()).append("\n");
     }
 
@@ -134,7 +133,6 @@ public class GameView {
         sb.append("\n");
         sb.append(ROW_DIVIDER).append("\n").append("\n");
     }
-
 
     public void noteInvalidInput() {
         writer.printSingleLine("한 프레임에서 10개 이상의 핀을 쓰러트릴 순 없습니다! 다시 입력해주세요.\n\n");

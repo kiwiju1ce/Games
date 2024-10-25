@@ -3,8 +3,8 @@ package code.util;
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 
-public class WriterSingletonHelper {
-    private WriterSingletonHelper() {
+public class WriterSingletonRegistry {
+    private WriterSingletonRegistry() {
     }
 
     public static BufferedWriterWrapper getInstance() {

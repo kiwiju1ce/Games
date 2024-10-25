@@ -12,6 +12,13 @@ import static code.constant.BowlingConstant.*;
 import static code.model.Frame.STRIKE;
 
 public class ScoreCalculator {
+    private ScoreCalculator() {
+    }
+
+    public static ScoreCalculator getInstance() {
+        return ScoreCalculatorHolder.instance;
+    }
+
     public Optional<Score> updatedScore(final List<RoundResult> results, int roundIdx) {
         if (results.get(roundIdx).canProcess()) return Optional.empty();
 
@@ -154,5 +161,9 @@ public class ScoreCalculator {
             }
         }
         return total + 10;
+    }
+
+    private static class ScoreCalculatorHolder {
+        private static final ScoreCalculator instance = new ScoreCalculator();
     }
 }
